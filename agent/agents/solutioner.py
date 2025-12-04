@@ -87,6 +87,5 @@ def get_solutions(page, key, session_id):
     response = chat(prompt.format(CTF_DESC=config.CTF_DESC), session_id=session_id)
     logger.info(f"{page['name']} 获取漏洞检测思路：{response}")
     # 解析漏洞检测思路
-
     solutions = parse_solutions(response)
     return solutions
