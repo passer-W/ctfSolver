@@ -1,0 +1,45 @@
+工具名称：request
+工具描述：进行HTTP请求，支持GET/POST等方法，自定义请求头和代理
+参数格式：
+<value>
+    <url>请求URL</url>
+    <method>请求方法,可选值:GET/POST/PUT/DELETE等</method>
+    <header>请求头配置,xml格式</header>
+    <param>请求参数,xml格式</param>
+    <files>
+        上传文件，上传时需要将其他参数一并携带
+        <file>
+            <name>文件参数名</name>
+            <content>文件内容</content>
+            <filename>文件名</filename>
+            <content_type>文件类型，如image/jpeg</content_type>
+        </file>
+        ...
+    </files>
+</value>
+参数示例：
+<value>
+    <url>http://xx</url>
+    <method>POST</method>
+    <header>
+        <content-type>application/x-www-form-urlencoded</content-type>
+    </header>
+    <param>
+        <username>xx</username>
+        <password>xx</password>
+    </param>
+</value>
+****
+工具名称：run_python
+工具描述：自定义python脚本并执行返回结果，注意进行url请求时需要对特殊字符进行url编码，最终结果需要print打印
+参数格式：
+<value>
+    Python代码
+</value>
+****
+工具名称：run_shell
+工具描述：当已封装工具无法满足请求时，自定义shell脚本并执行返回结果
+参数格式：
+<value>
+    <code>Shell命令</code>
+</value>

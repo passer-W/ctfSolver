@@ -1,0 +1,62 @@
+<value>
+    <url><![CDATA 请求URL]]></url>
+    <method>请求方法,可选值:GET/POST/PUT/DELETE等</method>
+    <header>请求头配置,xml格式，参数值需要用<![CDATA[包裹</header>
+    <params>（GET或POST请求参数）
+        <x-param>
+            <x-name><![CDATA[ 参数名]]></x-name>
+            <x-value><![CDATA[ 参数内容]]></x-value>
+        </x-param>
+    </params>
+    <raw>(如果是json格式或数据流，直接用raw传入请求体)
+        <![CDATA[ 请求体]]>
+    </raw>
+    <files>
+        上传文件，上传时需要将其他参数一并携带
+        <item>
+            <name>文件参数名</name>
+            <content>hex(<![CDATA 完整文件内容的hex编码，为hex字符串]]>)</content>
+            <filename>文件名</filename>
+            <content_type>文件类型，如image/jpeg</content_type>
+        </item>
+        ...
+    </files>
+    <needSave>True/False，是否需要保存</needSave>
+    <saveName>需要保存的文件名，后续使用时可以直接读取或使用，比如关键的泄漏文件需要保存，保存后的响应会携带savePath，即保存后文件的绝对路径</saveName>
+    <needReturn>True/False，是否需要获取响应，为了避免响应影响上下文，有些只为了发送请求可以不用获取响应</needReturn>
+    <needExplore>默认为False</needExplore>
+</value>
+参数示例：
+<value>
+    <url><![CDATA[ http://xx]]></url>
+    <method>POST</method>
+    <header>
+        <Content-Type><![CDATA[ application/x-www-form-urlencoded]]></Content-Type>
+    </header>
+    <param>
+        <x-param>
+            <x-name><![CDATA[ username]]></x-name>
+            <x-value><![CDATA[ admin]]></x-value>
+        </x-param>
+        <x-param>
+            <x-name><![CDATA[ password]]></x-name>
+            <x-value><![CDATA[ admin]]></x-value>
+        </x-param>
+    </param>
+    <files>
+        <item>
+            <name>file</name>
+            <content>hex(ffd8ffe0112233>)</content>
+            <filename>1.jpg</filename>
+            <content_type>image/jpeg</content_type>
+        </item>
+    </files>
+    <needExplore>False</needExplore>
+</value>
+注意：
+param中的参数值必须使用<!CDATA包裹
+如果同时需要传递get参数和post参数，get参数直接放在url中，如果仅是get请求，get参数放在param里
+如果是json格式，把需要传入的请求题放在raw中，示例如下：
+<raw>
+    <![CDATA[ {'a':1,'b':[1,2,3]}]]>
+</raw>

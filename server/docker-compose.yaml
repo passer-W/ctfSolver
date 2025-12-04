@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  backend:
+    image: ctfui-backend:latest
+    container_name: ctfui-backend
+    ports:
+      - "5000:5000"
+    restart: unless-stopped
+
+  frontend:
+    image: ctfui-frontend:latest
+    container_name: ctfui-frontend
+    ports:
+      - "85:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
